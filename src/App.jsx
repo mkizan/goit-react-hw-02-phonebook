@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-// import shortid from 'shortid';
+import Container from './components/Container';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
+import styles from './style.module.scss';
 
 class App extends Component {
   static defaultProps = {
@@ -31,16 +32,6 @@ class App extends Component {
     ],
     filter: '',
   };
-
-  //   formHandlerSubmit = ({ name }) => {
-  //     this.setState({
-  //       contacts: [
-  //         ...this.state.contacts,
-  //         { id: this.id, name: this.state.name },
-  //       ],
-  //     });
-  //     console.log(name);
-  //   };
 
   addContact = ({ name, number }) => {
     const contact = {
@@ -75,16 +66,16 @@ class App extends Component {
     );
 
     return (
-      <>
-        <h1>Phonebook</h1>
+      <Container>
+        <h1 className={styles.title__phonebook}>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} contacts={contacts} />
-        <h2>Contacts</h2>
+        <h2 className={styles.title__contacts}>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
         <ContactList
           contacts={filteredContacts}
           onDeleteContacts={this.deleteContacts}
         />
-      </>
+      </Container>
     );
   }
 }

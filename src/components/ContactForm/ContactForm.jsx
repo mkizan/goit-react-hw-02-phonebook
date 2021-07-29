@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './ContactForm.module.scss';
 
 class ContactForm extends Component {
   state = {
@@ -9,14 +10,12 @@ class ContactForm extends Component {
   handleInputChange = event => {
     const { name, value } = event.currentTarget;
 
-    // this.props.controlDuplicate(this.state.name);
     this.setState({ [name]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log(this.state);
     const { name, number } = this.state;
     const { onSubmit, contacts } = this.props;
 
@@ -37,35 +36,42 @@ class ContactForm extends Component {
   };
 
   render() {
-    // const { name } = this.state;
+    const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <form className={styles.form} onSubmit={this.handleSubmit}>
+        <label className={styles.label}>
           Name
-          {this.state.name}
           <input
             type="text"
+            className={styles.input}
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            value={this.state.name}
+            value={name}
             onChange={this.handleInputChange}
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             placeholder="Enter your name"
+            autoComplete="off"
             required
           />
         </label>
-        <label>
+        <label className={styles.label}>
+          Number
           <input
             type="tel"
+            className={styles.input}
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            value={this.state.number}
+            value={number}
             onChange={this.handleInputChange}
             title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+            placeholder="Enter your phone number"
+            autoComplete="on"
             required
           />
         </label>
-        <button type="submit">Add contact</button>
+        <button type="submit" className={styles.btn}>
+          Add contact
+        </button>
       </form>
     );
   }
